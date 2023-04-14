@@ -1,13 +1,8 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
+import { ConfirmMailDto } from './dto/confirm-mail-auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -21,5 +16,10 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() userObject: LoginAuthDto) {
     return this.authService.login(userObject);
+  }
+
+  @Post('confirm-email')
+  confirmEmail(@Body() confimationObject: ConfirmMailDto) {
+    return this.authService.confirmMail(confimationObject);
   }
 }

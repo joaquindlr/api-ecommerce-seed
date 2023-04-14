@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Kafka } from 'kafkajs';
+import { Topics } from './topics';
+import { RegisterAuthDto } from 'src/auth/dto/register-auth.dto';
 
 @Injectable()
 export class KafkaService {
@@ -16,5 +18,22 @@ export class KafkaService {
       messages: [{ value: message }],
     });
     await producer.disconnect();
+  }
+
+  async sendRegisterUserMail(userRegisterObject: {
+    email: string;
+    password: string;
+    username: string;
+    confirmationCode?: number;
+    confirmationCodeExpiration?: string;
+  }) {
+    const payload = {
+      email: userRegisterObject.email,
+      username: userRegisterObject.username,
+      confirmationCode: userRegisterObject.confirmationCode,
+      confirmationCodeExpiration: userRegisterObject.confirmationCodeExpiration,
+    };
+
+    this.send(Topics.NOTIFICATOR, JSON.stringify(payload));
   }
 }
