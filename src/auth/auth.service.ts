@@ -60,7 +60,6 @@ export class AuthService {
     if (!checkPassowrd)
       throw new HttpException('CREDENTIALS_ERROR', HttpStatus.UNAUTHORIZED);
 
-    console.log(findUser);
     if (!findUser.mailConfirmed) {
       throw new HttpException('MAIL_NO_CONFIRMED', HttpStatus.FORBIDDEN);
     }

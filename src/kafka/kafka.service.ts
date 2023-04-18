@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Kafka } from 'kafkajs';
 import { Topics } from './topics';
-import { RegisterAuthDto } from 'src/auth/dto/register-auth.dto';
 
 @Injectable()
 export class KafkaService {
